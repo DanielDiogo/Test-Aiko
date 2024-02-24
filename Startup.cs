@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Test_Aiko.Data;
-using Test_Aiko.Interfaces;
-using Test_Aiko.Repositories;
 
 namespace Test_Aiko
 {
@@ -23,10 +21,6 @@ namespace Test_Aiko
                 options.UseSqlite(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllers();
-            services.AddScoped<ILineRepository, LineRepository>();
-            services.AddScoped<IStopRepository, StopRepository>();
-            services.AddScoped<IVehiclePositionRepository, VehiclePositionRepository>();
-            services.AddScoped<IVehicleRepository, VehicleRepository>();
             // Configure Identity
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -51,7 +45,10 @@ namespace Test_Aiko
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+
+            app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

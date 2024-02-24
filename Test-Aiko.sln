@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test-Aiko", "Test-Aiko.csproj", "{D44EE119-8DFE-4A73-901A-0EBC752CAD5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api_AIKO", "..\Api-AIKO\Api_AIKO.csproj", "{5DA4AD80-0686-49D9-B2A3-A5B21691B6D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test-Aiko", "Test-Aiko.csproj", "{F148CEE3-3FE1-403C-914D-4F6D466EA058}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D44EE119-8DFE-4A73-901A-0EBC752CAD5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D44EE119-8DFE-4A73-901A-0EBC752CAD5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D44EE119-8DFE-4A73-901A-0EBC752CAD5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D44EE119-8DFE-4A73-901A-0EBC752CAD5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DA4AD80-0686-49D9-B2A3-A5B21691B6D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DA4AD80-0686-49D9-B2A3-A5B21691B6D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DA4AD80-0686-49D9-B2A3-A5B21691B6D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DA4AD80-0686-49D9-B2A3-A5B21691B6D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F148CEE3-3FE1-403C-914D-4F6D466EA058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F148CEE3-3FE1-403C-914D-4F6D466EA058}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F148CEE3-3FE1-403C-914D-4F6D466EA058}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F148CEE3-3FE1-403C-914D-4F6D466EA058}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

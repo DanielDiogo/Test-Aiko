@@ -1,28 +1,31 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Test_Aiko.DatabaseInitialization;
-using Test_Aiko.Models;
 
 namespace Test_Aiko.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        private readonly IServiceProvider _serviceProvider;
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            // Chama o inicializador do banco de dados
-            DbInitializer.Initialize(this);
-        }
+            string parentDirectory = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
 
-        public DbSet<Line> Lines { get; set; } = default!;
-        public DbSet<Stop> stops { get; set; } = default!;
-        public DbSet<Vehicle> vehicles { get; set; } = default!;
-        public DbSet<VehiclePosition> vehiclesPositions { get; set; } = default!;
+            if (!string.IsNullOrEmpty(parentDirectory))
+            {
+                // Combinar o caminho do diretório pai com a pasta "Banco"
+                string dataDirectory = Path.Combine(parentDirectory, "Banco");
+
+                // Definir o diretório de dados
+                AppDomain.CurrentDomain.SetData("DataDirectory", dataDirectory);
+            }
+
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
         }
     }
 }

@@ -1,26 +1,75 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+﻿
+    @using Microsoft.AspNetCore.Identity
+    @inject SignInManager<IdentityUser> SignInManager
+    @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Gerenciar">Olá @User.Identity?.Name!</a>
-        </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Sair</button>
-            </form>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Registrar</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Entrar</a>
-        </li>
-    }
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token</title>
+</head>
+<body>
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Gerenciar">Olá @User.Identity?.Name!</a>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-dark">Sair</button>
+                </form>
+            </li>
+            <li class="nav-item">
+                <button onclick="solicitarToken()" class="nav-link btn btn-link text-dark">Solicitar Token</button>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Registrar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Entrar</a>
+            </li>
+        }
+    </ul>
+
+    <!-- Token substituído diretamente no centro da página -->
+    <div style="text-align: center;">
+        <h1 id="token"></h1>
+    </div>
+
+    <script>
+        function solicitarToken() {
+            var userId = '@UserManager.GetUserId(User)';
+
+            // Realizar a requisição
+            fetch('https://localhost:7284/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ Id: userId })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Falha ao solicitar token.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    //console.log(data.token);
+                    document.getElementById('token').innerText = data.token; // Substitui o texto fixo pelo token retornado
+                })
+                .catch(error => {
+                    // Exibir mensagem de erro
+                    document.getElementById('token').innerText = 'Erro: ' + error.message;
+                });
+        }
+    </script>
+</body>
+</html>
+
